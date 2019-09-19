@@ -15,6 +15,14 @@ public class Articulo {
 		this.descripcion = descripcion;
 		this.precio = precio;
 	}
+	
+	public Articulo(Long id, String descripcion, Double precio) {
+		super();
+		this.id = id;
+		this.descripcion = descripcion;
+		this.precio = precio;
+	}
+
 	public Long getId() {
 		return id;
 	}

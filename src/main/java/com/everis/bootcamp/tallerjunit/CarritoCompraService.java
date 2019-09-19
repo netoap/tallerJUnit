@@ -6,6 +6,7 @@ import java.util.List;
 public class CarritoCompraService {
 	
 	List<Articulo> articulos = new ArrayList<Articulo>();
+	BaseDeDatosService bdservice = new BaseDeDatosService();
 	
 	public void limpiarCesta(){
 		articulos = new ArrayList<Articulo>();
@@ -37,7 +38,11 @@ public class CarritoCompraService {
 	public void setArticulos(List<Articulo> articulos) {
 		this.articulos = articulos;
 	}
+	public double precioArticuloComDesconto (Long idArticulo, double porcentajeDescuento) {
+		Articulo articulo = bdservice.findArticleById(idArticulo);
+		if(articulo==null) return -1;
+		articulo.setPrecio(calculadorDescuento(articulo.getPrecio(), porcentajeDescuento));
+		return articulo.getPrecio();
+	}
 	
-	
-
 }
