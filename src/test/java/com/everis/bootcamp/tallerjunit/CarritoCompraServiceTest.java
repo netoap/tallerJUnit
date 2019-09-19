@@ -3,6 +3,7 @@ package com.everis.bootcamp.tallerjunit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.internal.verification.Times;
 import org.mockito.junit.MockitoJUnitRunner;
+import static org.mockito.Mockito.times;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -41,7 +44,10 @@ public class CarritoCompraServiceTest {
 		
 		articulo = new Articulo("Apple", 2.2);		
 		//Mockito.when(bdservice.findArticleById(1L)).thenReturn(new Articulo(1L,"Este articulo está mockeado",10D));
-		Mockito.when(bdservice.findArticleById(100L)).thenReturn(new Articulo(100L,"Este articulo está mockeado",10D));
+		//Mockito.when(bdservice.findArticleById(100L)).thenReturn(new Articulo(100L,"Este articulo está mockeado",10D));
+		
+		Mockito.when(bdservice.findArticleById(Mockito.eq(100L))).thenReturn(new Articulo(100L,"Este articulo está mockeado",10D));
+				
 	}
 	
 	@Test
@@ -80,6 +86,7 @@ public class CarritoCompraServiceTest {
 		assertEquals(90, desconto,0);
 	}
 	
+	
 	@Test
 	public void setArticulosTest() {
 		carrito.limpiarCesta();
@@ -93,6 +100,7 @@ public class CarritoCompraServiceTest {
 		System.out.println("precioArticuloComDescontoTest");
 		double actual = carrito.precioArticuloComDesconto(100L, 10);
 		assertEquals(9, actual,0);
+		Mockito.verify(bdservice, times(1)).findArticleById(100L);
 	}
 	
 
